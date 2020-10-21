@@ -10,8 +10,8 @@ defaultConfig = {
 };
 
 const rester = (name, schema, config = defaultConfig) => {
-  const { indexQuery, middleware, config } = config;
-  const Model = model(name, new Schema(schema));
+  const { indexQuery, middleware, schemaConfig } = config;
+  const Model = model(name, new Schema(schema, schemaConfig));
   const router = Router();
 
   router.use(...middleware);
