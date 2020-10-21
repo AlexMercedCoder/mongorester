@@ -1,15 +1,25 @@
 const { Schema, model } = require("mongoose");
 const { Router } = require("express");
 
-const rester = (name, schema) => {
-  const Model = model(name, new Schema(schema));
+defaultConfig = {
+  indexQuery: () => {
+    return {};
+  },
+  middleware: [(req, res, next) => next()],
+  config: { timestamps: true },
+};
 
+const rester = (name, schema, config = defaultConfig) => {
+  const { indexQuery, middleware, config } = config;
+  const Model = model(name, new Schema(schema));
   const router = Router();
+
+  router.use(...middleware);
 
   //INDEX
   router.get("/", async (req, res) => {
     try {
-      res.status(200).json(await Model.find({}));
+      res.status(200).json(await Model.find(indexQuery(req, res)));
     } catch (error) {
       res.status(400).json({ error });
     }

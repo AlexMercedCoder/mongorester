@@ -79,3 +79,23 @@ router.delete("/:id", async (req, res) => {
   }
 });
 ```
+
+## The Config Object
+Can pass a third config object argument that'll help add middleware and configure your schema.
+
+```js
+
+//config object
+const config = {
+    middleware: [auth], //array of middleware function, must be an array
+    config: {timestamps: false}, //second argument of Schema, default timestamps true
+    indexQuery: (req, res) => {username: req.query.username}
+    //Function that takes req/res and returns object to query for index route
+}
+
+
+//Generate Model and Router
+const [Note, noteRouter] = rester("Note", { title: String, content: String });
+
+
+```
