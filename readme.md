@@ -6,6 +6,10 @@ Spin up a Full Crud Mongo Express API with one function
 
 ## How it works
 
+Install it...
+
+`npm install mongorester`
+
 require it...
 
 ```js

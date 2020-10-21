@@ -48,7 +48,9 @@ const rester = (name, schema, config = defaultConfig) => {
     try {
       res
         .status(200)
-        .json(await Model.findByIdAndUpdate(req.params.id, req.body));
+        .json(
+          await Model.findByIdAndUpdate(req.params.id, req.body, { new: true })
+        );
     } catch (error) {
       res.status(400).json({ error });
     }
