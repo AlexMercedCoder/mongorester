@@ -1,0 +1,81 @@
+# Mongo Rester
+
+### by Alex Merced
+
+Spin up a Full Crud Mongo Express API with one function
+
+## How it works
+
+require it...
+
+```js
+const rester = require("mongorester");
+```
+
+Pass the rester function a model name string and schema definition object. The function will return an array with the model and the router with 5 pre-made routes.
+
+```js
+//Generate Model and Router
+const [Note, noteRouter] = rester("Note", { title: String, content: String });
+
+//add extra routes if you want
+noteRouter.get("/user/:username", async (req, res) => {
+  res.json(await Note.find({ username: req.params.username }));
+});
+
+//Use the Router
+app.use("/note/", noteRouter);
+```
+
+## The Pre-Made Routes
+
+Here is the Routes that get created when using the rester function
+
+```js
+//INDEX
+router.get("/", async (req, res) => {
+  try {
+    res.status(200).json(await Model.find({}));
+  } catch (error) {
+    res.status(400).json({ error });
+  }
+});
+
+//SHOW
+router.get("/:id", async (req, res) => {
+  try {
+    res.status(200).json(await Model.findById(req.params.id));
+  } catch (error) {
+    res.status(400).json({ error });
+  }
+});
+
+//CREATE
+router.post("/", async (req, res) => {
+  try {
+    res.status(200).json(await Model.create(req.body));
+  } catch (error) {
+    res.status(400).json({ error });
+  }
+});
+
+//PUT
+router.put("/:id", async (req, res) => {
+  try {
+    res
+      .status(200)
+      .json(await Model.findByIdAndUpdate(req.params.id, req.body));
+  } catch (error) {
+    res.status(400).json({ error });
+  }
+});
+
+//DELETE
+router.delete("/:id", async (req, res) => {
+  try {
+    res.status(200).json(await Model.findByIdAndRemove(req.params.id));
+  } catch (error) {
+    res.status(400).json({ error });
+  }
+});
+```
