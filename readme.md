@@ -106,3 +106,17 @@ const [Note, noteRouter] = rester(
   config
 );
 ```
+
+## Overriding Default Routes
+
+You can pass an alternate route handler into the config object under the following keys:
+
+- index
+- show
+- update
+- create
+- destroy
+
+with the following function signature
+
+```(req, res, model) => {}```
