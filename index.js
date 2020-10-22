@@ -9,7 +9,10 @@ defaultConfig = {
   config: { timestamps: true },
 };
 
-const rester = (name, schema, config = defaultConfig) => {
+const rester = (name, schema, config = {}) => {
+  const configs = {...defaultConfig, ...config}
+
+
   const {
     indexQuery,
     middleware,
@@ -19,7 +22,7 @@ const rester = (name, schema, config = defaultConfig) => {
     destroy,
     update,
     create,
-  } = config;
+  } = configs;
   const Model = model(name, new Schema(schema, schemaConfig));
   const router = Router();
 
