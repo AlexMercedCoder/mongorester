@@ -1,7 +1,7 @@
 {
   "name": "mongorester",
-  "version": "1.0.7",
-  "description": "Generate a Mongoose Model and Crud Routes with one function",
+  "version": "1.0.8",
+  "description": "Generate a Mongoose Model and Crud Routes with one function also includes authy function which can spin up JWT authentication",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,7 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.10.9"
   }
 }

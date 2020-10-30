@@ -13,7 +13,7 @@ Install it...
 require it...
 
 ```js
-const rester = require("mongorester");
+const { rester } = require("mongorester");
 ```
 
 Pass the rester function a model name string and schema definition object. The function will return an array with the model and the router with 5 pre-made routes.
@@ -119,4 +119,47 @@ You can pass an alternate route handler into the config object under the followi
 
 with the following function signature
 
-```(req, res, model) => {}```
+`(req, res, model) => {}`
+
+## authy
+
+Another function inside Mongo Rester is Authy which will quickly implement JWT user authentication.
+
+```js
+const { authy } = require("mongorester");
+```
+
+Using it is as easy as this...
+
+```js
+userSchema = {
+  username: String,
+  password: String,
+  email: String,
+};
+
+schemaConfig = {
+  timestamps: true,
+};
+
+options = {
+  secret: "cheese",
+  tokenConfig: {
+    expiresIn: "ih",
+  },
+};
+
+const [User, authMiddleware, authRouter, authRester] = authy(
+  userSchema,
+  schemaConfig,
+  options
+);
+```
+
+**User:** The user model.
+
+**authMiddleware:** Middleware functions to protect routes.
+
+**authRouter:** auth router with "/register" and "/login" post routes.
+
+**authRester:** Like the rester function except it applies the authMiddleware to all routes, already has all CRUD routes like rester.
