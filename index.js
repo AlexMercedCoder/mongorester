@@ -166,7 +166,7 @@ const authy = (uModel = {}, config = { timestamps: true }, options = {}) => {
       if (user) {
         const match = bcrypt.compareSync(password, user.password);
         if (match) {
-          const { password: pw, ...theUser } = user;
+          const { password: pw, ...theUser } = user._doc;
           const token = jwt.sign(theUser, secret, tokenConfig);
           res.status(200).json({ token });
         } else {
@@ -292,7 +292,7 @@ const authy = (uModel = {}, config = { timestamps: true }, options = {}) => {
             if (item.username === req.payload.username) {
               res
                 .status(200)
-                .json(await Model.findByIdAndDelete(req.params.id));
+                .json(await Model.findByIdAndRemove(req.params.id));
             } else {
               res.status(400).json({ error: "NOT THIS USERS ITEM" });
             }
