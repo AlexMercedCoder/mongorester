@@ -129,12 +129,14 @@ const authy = (uModel = {}, config = { timestamps: true }, options = {}) => {
       if (req.headers.authorization) {
         const token = req.headers.authorization.split(" ")[1];
         const payload = jwt.verify(token, secret);
-        if (verifyUser(payload)) {
+        if (payload) {
           req.payload = payload;
           next();
         } else {
           res.status(400).send("Failed Authentication");
         }
+      } else {
+        res.status(400).send("NO AUTHORIZATION HEADER WITH BEARER TOKEN");
       }
     } catch (err) {
       res.status(400).send(err);
@@ -187,7 +189,7 @@ const authy = (uModel = {}, config = { timestamps: true }, options = {}) => {
     indexQuery: (req, res) => {
       return { username: req.payload.username };
     },
-    middleware: [(req, res, next) => next()],
+    middleware: [(req, res, next) => next(), auth],
     config: { timestamps: true },
   };
 
@@ -211,7 +213,7 @@ const authy = (uModel = {}, config = { timestamps: true }, options = {}) => {
     const Model = model(name, new Schema(theSchema, schemaConfig));
     const router = Router();
 
-    router.use(auth, ...middleware);
+    router.use(...middleware);
 
     //INDEX
     router.get("/", async (req, res) => {
