@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const {Schema, model} = mongoose
+const { Schema, model } = mongoose;
 const { Router } = require("express");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
@@ -314,16 +314,14 @@ const authy = (uModel = {}, config = { timestamps: true }, options = {}) => {
 ////////////////
 
 const connmon = (uri) => {
+  mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
-  mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true})
+  mongoose.connection
+    .on("open", () => console.log("CONNECTED TO MONGODB"))
+    .on("close", () => console.log("DISCONNECTED FROM MONGODB"))
+    .on("error", (error) => console.log(error));
 
-  mongoose
-  .on("open", () => console.log("CONNECTED TO MONGODB"))
-  .on("close", () => console.log("DISCONNECTED FROM MONGODB"))
-  .on("error", (error) => console.log(error))
-
-  return mongoose
-
-}
+  return mongoose;
+};
 
 module.exports = { rester, authy, connmon };
