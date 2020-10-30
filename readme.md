@@ -163,3 +163,13 @@ const [User, authMiddleware, authRouter, authRester] = authy(
 **authRouter:** auth router with "/register" and "/login" post routes.
 
 **authRester:** Like the rester function except it applies the authMiddleware to all routes, already has all CRUD routes like rester.
+
+## connmon
+
+Simple Mongo connection simplifier. Just pass it your mongo uri and it will return the connected mongoose object with basic event logs for open, close and error.
+
+```js
+const { connmon, rester, authy } = require("mongorester");
+
+const mongoose = connmon(uri);
+```
