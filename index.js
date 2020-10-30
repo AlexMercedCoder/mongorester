@@ -326,4 +326,4 @@ const connmon = (uri) => {
 
 }
 
-module.exports = { rester, authy };
+module.exports = { rester, authy, connmon };
