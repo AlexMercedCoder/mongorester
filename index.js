@@ -326,4 +326,16 @@ const connmon = (uri) => {
   return mongoose;
 };
 
-module.exports = { rester, authy, connmon };
+
+////////////////////////
+// reqInjector
+///////////////////////
+
+const reqInjector = (key, injectable) => {
+  return (req, res, next) => {
+    req[key] = injectable
+    next()
+  }
+}
+
+module.exports = { rester, authy, connmon, reqInjector };

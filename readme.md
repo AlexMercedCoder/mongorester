@@ -173,3 +173,15 @@ const { connmon, rester, authy } = require("mongorester");
 
 const mongoose = connmon(uri);
 ```
+
+## reqInjector
+
+Pass it a key and data and it will inject that data into the request object under that key. It returns a middleware function.
+
+```js
+const { reqInjector } = require("mongorester");
+const { User, Blog } = require("./models");
+
+//This makes all models available to all routes inside req.models
+app.use(reqInjector("models", { User, Blog }));
+```
