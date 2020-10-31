@@ -185,3 +185,16 @@ const { User, Blog } = require("./models");
 //This makes all models available to all routes inside req.models
 app.use(reqInjector("models", { User, Blog }));
 ```
+
+## cbLog
+
+In a lot of situations you have to pass a callback (think app.listen) which often just contains a console.log, so cbLog is a quick way to pass these messages in a colorful way.
+
+cbLog(key, message)
+
+```js
+const {cbLog} = require("mongorester")
+
+app.listen(PORT, cbLog("server", `Listening on ${PORT})`)
+
+```

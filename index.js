@@ -326,16 +326,26 @@ const connmon = (uri) => {
   return mongoose;
 };
 
-
 ////////////////////////
 // reqInjector
 ///////////////////////
 
 const reqInjector = (key, injectable) => {
   return (req, res, next) => {
-    req[key] = injectable
-    next()
-  }
-}
+    req[key] = injectable;
+    next();
+  };
+};
 
-module.exports = { rester, authy, connmon, reqInjector };
+///////////////////////////////////
+// CB LOG
+///////////////////////////////////
+const cbLog = (key, message) => {
+  console.log("\x1b[35m", `${key}:`, "\x1b[33m", message);
+};
+
+
+
+module.exports = { rester, authy, connmon, reqInjector, cbLog, Runway };
+
+
