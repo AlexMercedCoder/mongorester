@@ -1,6 +1,6 @@
 {
   "name": "mongorester",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "description": "Generate a Mongoose Model and Crud Routes with one function also includes authy function which can spin up JWT authentication",
   "main": "index.js",
   "scripts": {

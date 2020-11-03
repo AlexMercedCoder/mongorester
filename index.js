@@ -344,8 +344,4 @@ const cbLog = (key, message) => {
   console.log("\x1b[35m", `${key}:`, "\x1b[33m", message);
 };
 
-
-
-module.exports = { rester, authy, connmon, reqInjector, cbLog, Runway };
-
-
+module.exports = { rester, authy, connmon, reqInjector, cbLog };
