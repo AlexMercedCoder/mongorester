@@ -4,6 +4,24 @@ const { Router } = require("express");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 
+////////////////////////
+// reqInjector
+///////////////////////
+
+const reqInjector = (key, injectable) => {
+  return (req, res, next) => {
+    req[key] = injectable;
+    next();
+  };
+};
+
+///////////////////////////////////
+// CB LOG
+///////////////////////////////////
+const cbLog = (key, message) => {
+  console.log("\x1b[35m", `${key}:`, "\x1b[33m", message);
+};
+
 ///////////
 //Rester
 ///////////
@@ -319,29 +337,13 @@ const connmon = (uri) => {
   mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
 
   mongoose.connection
-    .on("open", () => console.log("CONNECTED TO MONGODB"))
-    .on("close", () => console.log("DISCONNECTED FROM MONGODB"))
-    .on("error", (error) => console.log(error));
+    .on("open", () => cbLog("MONGO", "CONNECTED TO MONGODB"))
+    .on("close", () => cbLog("MONGO", "DISCONNECTED TO MONGODB"))
+    .on("error", (error) => {
+      cbLog("MONGO", error);
+    });
 
   return mongoose;
-};
-
-////////////////////////
-// reqInjector
-///////////////////////
-
-const reqInjector = (key, injectable) => {
-  return (req, res, next) => {
-    req[key] = injectable;
-    next();
-  };
-};
-
-///////////////////////////////////
-// CB LOG
-///////////////////////////////////
-const cbLog = (key, message) => {
-  console.log("\x1b[35m", `${key}:`, "\x1b[33m", message);
 };
 
 module.exports = { rester, authy, connmon, reqInjector, cbLog };
