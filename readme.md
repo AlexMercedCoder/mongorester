@@ -123,7 +123,7 @@ with the following function signature
 
 ## authy
 
-Another function inside Mongo Rester is Authy which will quickly implement JWT user authentication.
+Another function inside Mongo Rester is Authy which will quickly implement JWT user authentication. (uses a bearer token)
 
 ```js
 const { authy } = require("mongorester");
@@ -145,7 +145,7 @@ schemaConfig = {
 options = {
   secret: "cheese",
   tokenConfig: {
-    expiresIn: "ih",
+    expiresIn: "1h",
   },
 };
 
@@ -158,9 +158,9 @@ const [User, authMiddleware, authRouter, authRester] = authy(
 
 **User:** The user model.
 
-**authMiddleware:** Middleware functions to protect routes.
+**authMiddleware:** Middleware functions to protect routes. It will store the token payload in req.payload
 
-**authRouter:** auth router with "/register" and "/login" post routes.
+**authRouter:** auth router with "/register" and "/login" post routes. THe login route will generate a token that holds all the user object except the password.
 
 **authRester:** Like the rester function except it applies the authMiddleware to all routes, already has all CRUD routes like rester.
 

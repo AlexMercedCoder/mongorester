@@ -60,6 +60,7 @@ const rester = (name, schema, config = {}) => {
       try {
         res.status(200).json(await Model.find(indexQuery(req, res)));
       } catch (error) {
+        console.log(error);
         res.status(400).json({ error });
       }
     }
@@ -73,6 +74,7 @@ const rester = (name, schema, config = {}) => {
       try {
         res.status(200).json(await Model.findById(req.params.id));
       } catch (error) {
+        console.log(error);
         res.status(400).json({ error });
       }
     }
@@ -86,6 +88,7 @@ const rester = (name, schema, config = {}) => {
       try {
         res.status(200).json(await Model.create(req.body));
       } catch (error) {
+        console.log(error);
         res.status(400).json({ error });
       }
     }
@@ -103,6 +106,7 @@ const rester = (name, schema, config = {}) => {
           })
         );
       } catch (error) {
+        console.log(error);
         res.status(400).json({ error });
       }
     }
@@ -116,6 +120,7 @@ const rester = (name, schema, config = {}) => {
       try {
         res.status(200).json(await Model.findByIdAndRemove(req.params.id));
       } catch (error) {
+        console.log(error);
         res.status(400).json({ error });
       }
     }
@@ -157,6 +162,7 @@ const authy = (uModel = {}, config = { timestamps: true }, options = {}) => {
         res.status(400).send("NO AUTHORIZATION HEADER WITH BEARER TOKEN");
       }
     } catch (err) {
+      console.log(err);
       res.status(400).send(err);
     }
   };
@@ -173,6 +179,7 @@ const authy = (uModel = {}, config = { timestamps: true }, options = {}) => {
       const user = await User.create(req.body);
       res.status(200).json(user);
     } catch (error) {
+      console.log(error);
       res.status(400).json({ error });
     }
   });
@@ -193,8 +200,8 @@ const authy = (uModel = {}, config = { timestamps: true }, options = {}) => {
       } else {
         res.status(400).json({ error: "NO SUCH USER" });
       }
-      res.status(200).json(user);
     } catch (error) {
+      console.log(error);
       res.status(400).json({ error });
     }
   });
@@ -241,6 +248,7 @@ const authy = (uModel = {}, config = { timestamps: true }, options = {}) => {
         try {
           res.status(200).json(await Model.find(indexQuery(req, res)));
         } catch (error) {
+          console.log(error);
           res.status(400).json({ error });
         }
       }
@@ -254,6 +262,7 @@ const authy = (uModel = {}, config = { timestamps: true }, options = {}) => {
         try {
           res.status(200).json(await Model.findById(req.params.id));
         } catch (error) {
+          console.log(error);
           res.status(400).json({ error });
         }
       }
@@ -268,6 +277,7 @@ const authy = (uModel = {}, config = { timestamps: true }, options = {}) => {
           req.body.username = req.payload.username;
           res.status(200).json(await Model.create(req.body));
         } catch (error) {
+          console.log(error);
           res.status(400).json({ error });
         }
       }
@@ -294,6 +304,7 @@ const authy = (uModel = {}, config = { timestamps: true }, options = {}) => {
             res.status(400).json({ error: "Item Doesn't exist" });
           }
         } catch (error) {
+          console.log(error);
           res.status(400).json({ error });
         }
       }
@@ -318,6 +329,7 @@ const authy = (uModel = {}, config = { timestamps: true }, options = {}) => {
             res.status(400).json({ error: "Item Doesn't exist" });
           }
         } catch (error) {
+          console.log(error);
           res.status(400).json({ error });
         }
       }
